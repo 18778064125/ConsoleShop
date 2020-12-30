@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Test {
     public static void main(String[] args) throws ClassNotFoundException {
-        boolean bool=true;
+        boolean bool = true;
         while (bool) {
             System.out.println("请输入用户名");
 
@@ -27,18 +27,18 @@ public class Test {
                 System.out.println("fffffffff: " + pass);
                 if (username.equals(users[i].getUsername()) && password.equals(pass)) {
                     System.out.println("登入成功");
-                    bool=false;
+                    bool = false;
                     /*x显示商品*/
-                    ReadProductExcel readProductExcel=new ReadProductExcel();
-                    Product products[]=readProductExcel.getAllProduct(inProduct);
-                    for (Product product:products){
+                    ReadProductExcel readProductExcel = new ReadProductExcel();
+                    Product products[] = readProductExcel.getAllProduct(inProduct);
+                    for (Product product : products) {
                         System.out.print(product.getId());
-                        System.out.print("\t"+product.getName());
-                        System.out.print("\t"+product.getPrice());
-                        System.out.print("\t"+product.getDesc());
+                        System.out.print("\t" + product.getName());
+                        System.out.print("\t" + product.getPrice());
+                        System.out.print("\t" + product.getDesc());
                     }
                     System.out.println("请输入商品id把该商品加入购物车");
-                    String id=sc.next();
+                    String id = sc.next();
                     int count = 0;
                     /*
                     创建一个购物车的数组：存的是商品
@@ -51,13 +51,13 @@ public class Test {
                     inProduct = Class.forName("Test").getResourceAsStream("/product.xlsx");
                     Product product = readProductExcel.getProductById(id, inProduct);
                     System.out.println("要购买的商品价格：" + product.getPrice());
-                    if(product!=null){
-                        carts[count++]=product;
+                    if (product != null) {
+                        carts[count++] = product;
                     }
                     System.out.println("继续购买商品请按1");
                     System.out.println("查看购物车请按2");
-                    int choose=sc.nextInt();
-                    if(choose==1){
+                    int choose = sc.nextInt();
+                    if (choose == 1) {
                         inProduct = null;
                         inProduct = Class.forName("Test").getResourceAsStream("/product.xlsx");
                         readProductExcel = new ReadProductExcel();
@@ -74,15 +74,27 @@ public class Test {
                         inProduct = Class.forName("Test").getResourceAsStream("/product.xlsx");
                         product = readProductExcel.getProductById(id, inProduct);
                         System.out.println("要购买的商品价格：" + product.getPrice());
-                        if(product!=null){
-                            carts[count++]=product;
+                        if (product != null) {
+                            carts[count++] = product;
                         }
-                    }else if(choose==2){
+                    } else if (choose == 2)
+
                         /*
                         查看购物车
+                        1,购物车是数组
+                        2，既然是数组，我们可以用for循环来查看
                          */
+                        System.out.println("当前购物车商品如下");
+                    for (Product p : carts) {
+                        if (p != null) {
+                            System.out.print(p.getId());
+                            System.out.print("\t" + p.getName());
+                            System.out.print("\t" + p.getPrice());
+                            System.out.println("\t" + p.getDesc());
+                        }
                     }
-
+                /*按1结账
+                  按2继续购物*/
                     break;
                 } else {
                     System.out.println("登入失败");
